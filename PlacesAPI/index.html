@@ -10,20 +10,63 @@
 </head>
 
 <body>
+<h3>Referenced</h3>
+<a href="https://developers.google.com/places/web-service/autocomplete?hl=es">Google Documentation</a>
+
   <div id="locationField">
 
     <h3>Autocomplete without types</h3>
+    <p> If nothing is specified, all types are returned</p>
     <input id="autocomplete0" placeholder="Enter your address" type="text" class="input"/>
 
     <h3>Autocomplete with address</h3>
+    <p>address instructs the Place Autocomplete service to return only geocoding results with a precise address. Generally, you use this request when you know the user will be looking for a fully specified address.</p>
     <input id="autocomplete1" placeholder="Enter your address" type="text" class="input"/>
     
     <h3>Autocomplete with geocode </h3>
+    <p>geocode instructs the Place Autocomplete service to return only geocoding results, rather than business results. Generally, you use this request to disambiguate results where the location specified may be indeterminate.</p>
     <input id="autocomplete2" placeholder="Enter your address" type="text" class="input"/>
+
+    <h3>Autocomplete with establishment</h3>
+    <p>establishment instructs the Place Autocomplete service to return only business results.</p>
+    <input id="autocomplete3" placeholder="Enter your address" type="text" class="input"/>
+    
+
+    <h3>Autocomplete with regions</h3>
+    <p>
+        the (regions) type collection instructs the Places service to return any result matching the following types:
+        locality
+        sublocality
+        postal_code
+        country
+        administrative_area_level_1
+        administrative_area_level_2
+    </p>
+    <input id="autocomplete4" placeholder="Enter your address" type="text" class="input"/>
+
+
+    <h3>Autocomplete with Cities</h3>
+    <p>the (cities) type collection instructs the Places service to return results that match locality or administrative_area_level_3.</p>
+    <input id="autocomplete5" placeholder="Enter your address" type="text" class="input"/>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
 
     <script>
 
-      var placeSearch, autocomplete0 ,autocomplete1, autocomplete2 , autocomplete3;
+      var placeSearch;
+      var autocomplete0;
+      var autocomplete1;
+      var autocomplete2;
+      var autocomplete3; 
+      var autocomplete4; 
+      var autocomplete5;
 
 
       function initAutocomplete() {
@@ -35,7 +78,7 @@
         autocomplete0.setFields(['address_component']);
         autocomplete0.setComponentRestrictions({'country': ['co']});
         //autocomplete0.setLanguage('es');
-        //autocomplete0.setOffSet(4);
+        //autocomplete0.setOffset(4);
 
 //----------------------------------
         // Create the autocomplete object, restricting the search predictions to
@@ -57,7 +100,41 @@
         autocomplete2.setFields(['address_component']);
         autocomplete2.setComponentRestrictions({'country': ['co']});
 
-      }
+//-----------------------------------------------
+         
+autocomplete3 = new google.maps.places.Autocomplete(
+          document.getElementById('autocomplete3'), { 
+            types: ['establishment'] 
+        });
+        // Avoid paying for data that you don't need by restricting the set of
+        // place fields that are returned to just the address components.
+        autocomplete3.setFields(['address_component']);
+        autocomplete3.setComponentRestrictions({'country': ['co']});
+
+
+ //----------------------------------------------
+
+        autocomplete4 = new google.maps.places.Autocomplete(
+          document.getElementById('autocomplete4'), { 
+            types: ['(regions)'] 
+        });
+        // Avoid paying for data that you don't need by restricting the set of
+        // place fields that are returned to just the address components.
+        autocomplete4.setFields(['address_component']);
+        autocomplete4.setComponentRestrictions({'country': ['co']});
+
+//----------------------------------------------------
+
+        autocomplete5 = new google.maps.places.Autocomplete(
+          document.getElementById('autocomplete5'), { 
+            types: ['(cities)'] 
+        });
+        // Avoid paying for data that you don't need by restricting the set of
+        // place fields that are returned to just the address components.
+        autocomplete5.setFields(['address_component']);
+        autocomplete5.setComponentRestrictions({'country': ['co']});
+}
+//----------------------------------------------------
 
       // Bias the autocomplete object to the user's geographical location,
       // as supplied by the browser's 'navigator.geolocation' object.
