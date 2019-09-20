@@ -70,15 +70,33 @@
 
 
       function initAutocomplete() {
+       
         autocomplete0 = new google.maps.places.Autocomplete(
           document.getElementById('autocomplete0')
           );
+
+          autocomplete0.addListener('place_changed', function() {
+
+          var place = autocomplete0.getPlace();
+
+          /*
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            // Do anything you like with what was entered in the ac field.
+            console.log('You entered: ' + place.name);
+            return;
+          }
+          */
+          console.log(place);
+          console.log( 'formated address ::: ' + place.formatted_address);
+          });
         // Avoid paying for data that you don't need by restricting the set of
         // place fields that are returned to just the address components.
-        autocomplete0.setFields(['address_component']);
+        //autocomplete0.setFields(['address_component']);
         autocomplete0.setComponentRestrictions({'country': ['co']});
         //autocomplete0.setLanguage('es');
-        //autocomplete0.setOffset(4);
+        //autocomplete0.setOffset(4); 
 
 //----------------------------------
         // Create the autocomplete object, restricting the search predictions to
